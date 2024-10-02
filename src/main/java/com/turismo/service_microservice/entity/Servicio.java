@@ -45,9 +45,15 @@ public class Servicio {
         this.categoria = categoria;
     }
 
-    public Servicio(String nombre2, String descripcion2, Float precio2, String ubicacion2, LocalDateTime fechaInicio2,
-            LocalDateTime fechaFin2) {
-        //TODO Auto-generated constructor stub
+
+    public Servicio(String nombre, String descripcion, Float precio, String ubicacion, LocalDateTime fechaInicio,
+            LocalDateTime fechaFin) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.ubicacion = ubicacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
     public Long getId() {

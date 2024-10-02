@@ -1,0 +1,21 @@
+type Servicio {
+    id: ID!
+    nombre: String!
+    descripcion: String
+    precio: Float
+    ubicacion: String
+    fechaInicio: String
+    fechaFin: String
+    categoria: Categoria
+}
+
+type Categoria {
+    id: ID!
+    nombre: String!
+    descripcion: String
+    servicios: [Servicio]  # Relación uno a muchos
+}
+
+type Query {
+    buscarServicios(keyword: String!): [Servicio]
+}
