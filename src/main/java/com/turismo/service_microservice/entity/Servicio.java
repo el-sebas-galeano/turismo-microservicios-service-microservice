@@ -1,67 +1,53 @@
 package com.turismo.service_microservice.entity;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 
-@Entity(name = "servicio")
-public class Servicio {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED) 
+public abstract class Servicio {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idServicio;
 
+    @Column(name = "NOMBRE")
     private String nombre;
-    private String descripcion;
-    private Float precio;
-    private String ubicacion;
-    private LocalDateTime fechaInicio;
-    private LocalDateTime fechaFin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id")
-    @JsonIgnore
-    private Categoria categoria;
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+
+    @Column(name = "ESTADO")
+    private EstadoServicio estado;
+    
+    @Column(name = "FOTO")
+    private byte[] foto;
+
+    @Column(name = "FOTOS_DESCRIPCION")
+    private List<byte[]> fotosDescripcion;
+
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Calificacion> calificaciones;
 
     public Servicio() {
     }
 
-    public Servicio(String nombre, String descripcion, Float precio, String ubicacion, LocalDateTime fechaInicio,
-            LocalDateTime fechaFin, Categoria categoria) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.ubicacion = ubicacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.categoria = categoria;
+    public Long getIdServicio() {
+        return idServicio;
     }
 
-
-    public Servicio(String nombre, String descripcion, Float precio, String ubicacion, LocalDateTime fechaInicio,
-            LocalDateTime fechaFin) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.ubicacion = ubicacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdServicio(Long idServicio) {
+        this.idServicio = idServicio;
     }
 
     public String getNombre() {
@@ -80,44 +66,36 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public Float getPrecio() {
-        return precio;
+    public EstadoServicio getEstado() {
+        return estado;
     }
 
-    public void setPrecio(Float precio) {
-        this.precio = precio;
+    public void setEstado(EstadoServicio estado) {
+        this.estado = estado;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
-    public LocalDateTime getFechaInicio() {
-        return fechaInicio;
+    public List<byte[]> getFotosDescripcion() {
+        return fotosDescripcion;
     }
 
-    public void setFechaInicio(LocalDateTime fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFotosDescripcion(List<byte[]> fotosDescripcion) {
+        this.fotosDescripcion = fotosDescripcion;
     }
 
-    public LocalDateTime getFechaFin() {
-        return fechaFin;
+    public List<Calificacion> getCalificaciones() {
+        return calificaciones;
     }
 
-    public void setFechaFin(LocalDateTime fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
     }
 
     
