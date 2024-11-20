@@ -65,4 +65,10 @@ public class ActividadRESTController {
         List<Actividad> actividades = actividadesService.obtenerServiciosPorNombre(nombre);
         return ResponseEntity.ok(actividades);
     }
+
+    @GetMapping(path = "/usuario/{idUsuario}")
+    public ResponseEntity<List<Actividad>> obtenerActividadesPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Actividad> actividades = actividadesService.obtenerServiciosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(actividades);
+    }
 }

@@ -52,10 +52,23 @@ public class TransporteRESTController {
         return ResponseEntity.ok(transporte);
     }
 
-    @GetMapping
+    @GetMapping("/estado")
     public ResponseEntity<List<Transporte>> obtenerTransportesPorEstado(
             @RequestParam(name = "estado", required = false, defaultValue = "DISPONIBLE") EstadoServicio estado) {
         List<Transporte> transportes = transporteService.obtenerServiciosPorEstado(estado);
+        return ResponseEntity.ok(transportes);
+    }
+
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<List<Transporte>> obtenerTransportesPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Transporte> transportes = transporteService.obtenerServiciosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(transportes);
+    }
+
+    @GetMapping("/nombre")
+    public ResponseEntity<List<Transporte>> obtenerTransportesPorNombre(
+            @RequestParam(name = "nombre", required = false, defaultValue = "") String nombre) {
+        List<Transporte> transportes = transporteService.obtenerServiciosPorNombre(nombre);
         return ResponseEntity.ok(transportes);
     }
 }

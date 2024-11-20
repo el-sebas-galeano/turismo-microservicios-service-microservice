@@ -65,4 +65,10 @@ public class AlimentacionRESTController {
         List<Alimentacion> alimentaciones = alimentacionService.obtenerServiciosPorNombre(nombre);
         return ResponseEntity.ok(alimentaciones);
     }
+
+    @GetMapping(path = "/usuario/{idUsuario}")
+    public ResponseEntity<List<Alimentacion>> obtenerAlimentacionesPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Alimentacion> alimentaciones = alimentacionService.obtenerServiciosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(alimentaciones);
+    }
 }

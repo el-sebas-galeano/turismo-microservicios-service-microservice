@@ -12,5 +12,6 @@ import com.turismo.service_microservice.entity.Servicio;
 public interface ServicioRepository<T extends Servicio> extends JpaRepository<T, Long> {
     List<T> findByEstado(EstadoServicio estado);
     List<T> findByNombre(String nombre);
+    List<T> findByIdUsuario(Long idUsuario);
 }
 

@@ -48,4 +48,9 @@ public abstract class ImpServicioService<T extends Servicio> implements IServici
     public List<T> obtenerServiciosPorNombre(String nombre){
         return repositorio.findByNombre(nombre);
     }
+
+    @Override
+    public List<T> obtenerServiciosPorIdUsuario(Long idUsuario){
+        return repositorio.findByIdUsuario(idUsuario);
+    }
 }

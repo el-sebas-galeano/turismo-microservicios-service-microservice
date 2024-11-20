@@ -65,4 +65,10 @@ public class HospedajeRESTController {
         List<Hospedaje> hospedajes = hospedajeService.obtenerServiciosPorNombre(nombre);
         return ResponseEntity.ok(hospedajes);
     }
+
+    @GetMapping(path = "/usuario/{idUsuario}")
+    public ResponseEntity<List<Hospedaje>> obtenerHospedajesPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Hospedaje> hospedajes = hospedajeService.obtenerServiciosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(hospedajes);
+    }
 }

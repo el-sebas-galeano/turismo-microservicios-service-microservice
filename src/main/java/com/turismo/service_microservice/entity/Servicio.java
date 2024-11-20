@@ -2,6 +2,8 @@ package com.turismo.service_microservice.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +23,9 @@ public abstract class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idServicio;
 
+    @Column(name = "ID_USUARIO")
+    private Long idUsuario;
+
     @Column(name = "NOMBRE")
     private String nombre;
 
@@ -37,6 +42,7 @@ public abstract class Servicio {
     private List<byte[]> fotosDescripcion;
 
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Calificacion> calificaciones;
 
     public Servicio() {
@@ -96,6 +102,14 @@ public abstract class Servicio {
 
     public void setCalificaciones(List<Calificacion> calificaciones) {
         this.calificaciones = calificaciones;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     

@@ -65,4 +65,10 @@ public class VoluntariadoRESTController {
         List<Voluntariado> voluntariados = voluntariadoService.obtenerServiciosPorNombre(nombre);
         return ResponseEntity.ok(voluntariados);
     }
+
+    @GetMapping(path = "/usuario/{idUsuario}")
+    public ResponseEntity<List<Voluntariado>> obtenerVoluntariadosPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Voluntariado> voluntariados = voluntariadoService.obtenerServiciosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(voluntariados);
+    }
 }

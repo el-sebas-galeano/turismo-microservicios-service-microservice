@@ -24,8 +24,8 @@ public class Actividad extends Servicio{
     @Column(name = "PRECIO")
     private double precio;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> requerimientos;
+    @Column(name = "REQUERIMIENTOS")
+    private String requerimientos;
     
     @Column(name = "CAPACIDAD_MAXIMA")
     private int capacidadMaxima;
@@ -74,13 +74,6 @@ public class Actividad extends Servicio{
         this.precio = precio;
     }
 
-    public List<String> getRequerimientos() {
-        return requerimientos;
-    }
-
-    public void setRequerimientos(List<String> requerimientos) {
-        this.requerimientos = requerimientos;
-    }
 
     public int getCapacidadMaxima() {
         return capacidadMaxima;
@@ -112,6 +105,14 @@ public class Actividad extends Servicio{
 
     public void setNombreUbicacion(String nombreUbicacion) {
         this.nombreUbicacion = nombreUbicacion;
+    }
+
+    public String getRequerimientos() {
+        return requerimientos;
+    }
+
+    public void setRequerimientos(String requerimientos) {
+        this.requerimientos = requerimientos;
     }
 
     

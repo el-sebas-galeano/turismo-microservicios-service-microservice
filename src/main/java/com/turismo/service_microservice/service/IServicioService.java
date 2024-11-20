@@ -12,4 +12,5 @@ public interface IServicioService <T extends Servicio>{
     T obtenerServiciosPorId(Long idServicio);
     List<T> obtenerServiciosPorEstado(EstadoServicio estado);
     List<T> obtenerServiciosPorNombre(String nombre);
+    List<T> obtenerServiciosPorIdUsuario(Long idUsuario);
 }
