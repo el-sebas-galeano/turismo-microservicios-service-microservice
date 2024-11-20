@@ -1,21 +1,235 @@
-type Servicio {
-    id: ID!
-    nombre: String!
-    descripcion: String
-    precio: Float
-    ubicacion: String
-    fechaInicio: String
-    fechaFin: String
-    categoria: Categoria
-}
-
-type Categoria {
-    id: ID!
-    nombre: String!
-    descripcion: String
-    servicios: [Servicio]  # Relación uno a muchos
-}
-
 type Query {
-    buscarServicios(keyword: String!): [Servicio]
+    getAllProducts: [Product]
+    getProductById(id: ID): Product
+    getProductByName(name: String): [Product]
+
+    obtenerTransportes: [Transporte]
+    obtenerTransportePorId(id: ID): Transporte
+    obtenerTransportesPorNombre(nombre: String): [Transporte]
+
+    obtenerActividades: [Actividad]
+    obtenerActividadPorId(id: ID): Actividad
+    obtenerActividadesPorNombre(nombre: String): [Actividad]
+
+    obtenerAlimentaciones: [Alimentacion]
+    obtenerAlimentacionPorId(id: ID): Alimentacion
+    obtenerAlimentacionPorNombre(nombre: String): [Alimentacion]
+
+    obtenerHospedajes: [Hospedaje]
+    obtenerHospedajePorId(id: ID): Hospedaje
+    obtenerHospedajePorNombre(nombre: String): [Hospedaje]
+
+    obtenerVoluntariados: [Voluntariado]
+    obtenerVoluntariadosporId(id: ID): Voluntariado
+    obtenerVoluntariadosPorNombre(nombre: String): [Voluntariado]
+
+    
+}
+
+enum TipoTransporte {
+    AEREO
+    TERRESTRE
+    ACUATICO
+}
+
+enum EstadoServicio {
+    DISPONIBLE
+    NO_DISPONIBLE
+    SUSPENDIDO
+}
+
+enum NivelDificultad {
+    FACIL
+    FACIL_MODERADO
+    MODERADO
+    MODERADO_DIFICIL
+    DIFICIL
+    DIFICIL_EXTREMO
+    EXTREMO
+}
+
+enum TipoActividad {
+    TREKKING
+    OBSERVACION_FAUNA
+    SENDERISMO
+    KAYAK
+    CANOA
+    SNORKEL
+    BUCEO
+    OBSERVACION_AVES
+    PASEOS_CABALLO
+    CICLISMO
+    VISITAS_GUIADAS
+    VOLUNTARIADO_REFORESTACION
+    LIMPIEZA_PLAYAS
+    CONSERVACION_FAUNA
+    CAMPAMENTOS_EDUCATIVOS
+    TALLERES_MEDIOAMBIENTALES
+    FOTOGRAFIA_NATURALEZA
+    CARRERAS_ORIENTACION
+    ESCALADA
+    VIA_FERRATA
+    PESCA_SOSTENIBLE
+    AGRICULTURA_ECOLOGICA
+    VISITAS_COMUNIDADES_INDIGENAS
+    TERAPIAS_NATURALEZA
+}
+
+enum TipoCocina {
+    REGIONAL
+    INTERNACIONAL
+    VEGETARIANA
+    VEGANA
+    MARISCOS
+    MEDITERRANEA
+    ASIATICA
+    FRANCESA
+    ITALIANA
+    MEXICANA
+    INDIA
+    JAPONESA
+    CHINA
+    TAILANDESA
+    LIBANESA
+    AFRICANA
+    PERUANA
+    ESPANOLA
+    GRIEGA
+    BRASILENA
+    AMERICANA
+    CARIBENA
+    MIDDLE_EASTERN
+    FUSION
+}
+
+enum TipoHospedaje {
+    HOTEL
+    CABANA
+    CAMPING
+    HOSTAL
+    APARTAMENTO
+    RESORT
+    CASA_RURAL
+    GLAMPING
+    ALBERGUE
+    CASA_DE_HUESPEDES
+}
+
+
+type Product {
+    id: ID
+    name: String
+    description: String
+    price: Float
+}
+
+type Calificacion {
+    idCalificacion: ID
+    titulo: String
+    descripcion: String
+    reputacion: Int
+    servicio: Servicio
+}
+
+interface Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+}
+
+type Transporte implements Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+    tipoTransporte: TipoTransporte
+    fechaSalida: String
+    fechaLlegada: String
+    capacidad: Int
+    costoPorPasajero: Float
+    origenLatitud: Float
+    origenLongitud: Float
+    destinoLatitud: Float
+    destinoLongitud: Float
+}
+
+type Actividad implements Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+    tipoActividad: TipoActividad
+    duracion: Float
+    nivelDificultad: NivelDificultad
+    precio: Float
+    requerimientos: [String]
+    capacidadMaxima: Int
+    ubicacionLatitud: Float
+    ubicacionLongitud: Float
+    nombreUbicacion: String
+}
+
+type Alimentacion implements Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+    tipoCocina: TipoCocina
+    horaMinima: String
+    horaMaxima: String
+    precio: Float
+    ubicacionLatitud: Float
+    ubicacionLongitud: Float
+    nombreUbicacion: String
+}
+
+type Hospedaje implements Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+    tipoHospedaje: TipoHospedaje!
+    capacidadMaxima: Int!
+    dias: Int!
+    noches: Int!
+    horaCheckOut: String!
+    serviciosIncluidos: [String!]!
+    ubicacionLatitud: Float!
+    ubicacionLongitud: Float!
+    nombreUbicacion: String!
+}
+
+type Voluntariado implements Servicio {
+    idServicio: ID
+    nombre: String
+    descripcion: String
+    estado: EstadoServicio
+    foto: String
+    fotosDescripcion: [String]
+    calificaciones: [Calificacion]
+    objetivo: String
+    duracion: Int
+    actividades: [String]
+    requerimientos: [String]
+    ubicacionLatitud: Float
+    ubicacionLongitud: Float
+    nombreUbicacion: String
+    costo: Float
+    beneficios: [String]
 }
